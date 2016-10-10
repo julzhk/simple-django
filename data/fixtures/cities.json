@@ -1,0 +1,16 @@
+[
+  {
+    "pk": 1,
+    "model": "data.city",
+    "fields": {
+      "name": "San Francisco"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "data.city",
+    "fields": {
+      "name": "Amsterdam"
+    }
+  }
+]

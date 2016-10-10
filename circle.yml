@@ -1,25 +1,15 @@
-#6 sections to the YAML
-#machine: adjusting the VM to your preferences and requirements
-#checkout: checking out and cloning your git repo
-#dependencies: setting up your project’s language-specific dependencies
-#database: preparing the databases for your tests
-#test: running your tests
-#deployment: deploying your code to your web servers
-
 machine:
-  python:
-    version: pypy-2.2.1
   services:
     - docker
 
 dependencies:
   override:
     - docker info
-    - docker build --rm=false -t julzhk/simpledjango .
+    - docker build --rm=false -t circleci/elasticsearch .
 
 test:
   override:
-    - docker run -d -p 9200:9200 julzhk/simpledjango; sleep 10
+    - docker run -d -p 9200:9200 circleci/elasticsearch; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:9200
 
 deployment:
@@ -27,4 +17,4 @@ deployment:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push julzharley/simpledjango
+      - docker push circleci/elasticsearch
